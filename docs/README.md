@@ -318,5 +318,10 @@ Testing
 
 ## Application Walkthrough
 
-![Backend_Postman_API_calls](docs/Backend_showcase.gif)
-![UI_frontend](docs/Frontend_showcase.gif)
+### Backend API Workflow
+
+![Backend Postman API calls](./docs/Backend_showcase.gif)
+
+### Frontend Claims Workflow
+
+![Claims Platform frontend](./docs/Frontend_showcase.gif)
