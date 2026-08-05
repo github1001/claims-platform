@@ -1,0 +1,41 @@
+<header class="app-header">
+  <div class="brand">
+    <span class="brand-mark">CP</span>
+
+    <div>
+      <h1>Claims Platform</h1>
+      <p>Motor and property claims</p>
+    </div>
+  </div>
+
+  <nav>
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }">
+      Dashboard
+    </a>
+
+    <a
+      routerLink="/submit"
+      routerLinkActive="active">
+      Submit claim
+    </a>
+
+    <a
+      routerLink="/track"
+      routerLinkActive="active">
+      Track claim
+    </a>
+
+    <a
+      routerLink="/officer"
+      routerLinkActive="active">
+      Officer workspace
+    </a>
+  </nav>
+</header>
+
+<main class="page-container">
+  <router-outlet />
+</main>

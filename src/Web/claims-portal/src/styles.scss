@@ -1,0 +1,137 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family:
+    Inter,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  color: #172b3a;
+  background: #f4f7fa;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.page-heading {
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.8rem;
+  }
+
+  p {
+    margin: 0.45rem 0 0;
+    color: #607487;
+  }
+}
+
+.card {
+  padding: 1.4rem;
+  border: 1px solid #dce5ec;
+  border-radius: 0.8rem;
+  background: white;
+  box-shadow: 0 0.2rem 0.7rem rgba(16, 47, 79, 0.05);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  label {
+    font-weight: 650;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #becbd5;
+    border-radius: 0.5rem;
+    background: white;
+  }
+
+  textarea {
+    min-height: 7rem;
+    resize: vertical;
+  }
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.primary-button,
+.secondary-button,
+.danger-button {
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+.primary-button {
+  background: #1263a3;
+  color: white;
+}
+
+.secondary-button {
+  background: #e4edf4;
+  color: #173954;
+}
+
+.danger-button {
+  background: #b83333;
+  color: white;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.success-message,
+.error-message {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.55rem;
+}
+
+.success-message {
+  background: #e7f7ed;
+  color: #176238;
+}
+
+.error-message {
+  background: #fdecec;
+  color: #8b2525;
+}
+
+@media (max-width: 700px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

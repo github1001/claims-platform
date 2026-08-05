@@ -1,0 +1,37 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/BuildingBlocks/">
+    <Project Path="src/BuildingBlocks/ClaimsPlatform.Contracts/ClaimsPlatform.Contracts.csproj" />
+    <Project Path="src/BuildingBlocks/ClaimsPlatform.EventBus/ClaimsPlatform.EventBus.csproj" />
+    <Project Path="src/BuildingBlocks/ClaimsPlatform.Observability/ClaimsPlatform.Observability.csproj" />
+  </Folder>
+  <Folder Name="/src/Gateway/">
+    <Project Path="src/Gateway/ClaimsPlatform.Gateway/ClaimsPlatform.Gateway.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Claims/">
+    <Project Path="src/Services/Claims/Claims.Api/Claims.Api.csproj" />
+    <Project Path="src/Services/Claims/Claims.Application/Claims.Application.csproj" />
+    <Project Path="src/Services/Claims/Claims.Domain/Claims.Domain.csproj" />
+    <Project Path="src/Services/Claims/Claims.Infrastructure/Claims.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Notifications/">
+    <Project Path="src/Services/Notifications/Notifications.Infrastructure/Notifications.Infrastructure.csproj" />
+    <Project Path="src/Services/Notifications/Notifications.Worker/Notifications.Worker.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Reporting/">
+    <Project Path="src/Services/Reporting/Reporting.Api/Reporting.Api.csproj" />
+    <Project Path="src/Services/Reporting/Reporting.Infrastructure/Reporting.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/WorkManagement/">
+    <Project Path="src/Services/WorkManagement/WorkManagement.Api/WorkManagement.Api.csproj" />
+    <Project Path="src/Services/WorkManagement/WorkManagement.Application/WorkManagement.Application.csproj" />
+    <Project Path="src/Services/WorkManagement/WorkManagement.Domain/WorkManagement.Domain.csproj" />
+    <Project Path="src/Services/WorkManagement/WorkManagement.Infrastructure/WorkManagement.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Architecture.Tests/Architecture.Tests.csproj" />
+    <Project Path="tests/Claims.IntegrationTests/Claims.IntegrationTests.csproj" />
+    <Project Path="tests/Claims.UnitTests/Claims.UnitTests.csproj" />
+  </Folder>
+</Solution>

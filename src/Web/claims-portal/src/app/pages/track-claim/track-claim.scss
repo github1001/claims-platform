@@ -1,0 +1,109 @@
+.search-card {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+
+  .form-field {
+    flex: 1;
+  }
+}
+
+.claim-card {
+  margin-top: 1.4rem;
+}
+
+.claim-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h3 {
+    margin: 0.25rem 0 0;
+  }
+}
+
+.reference {
+  color: #607487;
+  font-size: 0.85rem;
+}
+
+.status {
+  align-self: flex-start;
+  padding: 0.45rem 0.75rem;
+  border-radius: 2rem;
+  background: #e4edf4;
+  font-weight: 700;
+}
+
+.status[data-status="Approved"],
+.status[data-status="Settled"] {
+  background: #e5f6eb;
+  color: #176238;
+}
+
+.status[data-status="Rejected"] {
+  background: #fde8e8;
+  color: #8b2525;
+}
+
+.status[data-status="AdditionalInformationRequired"] {
+  background: #fff3d6;
+  color: #79520a;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  span {
+    color: #6b7d8c;
+    font-size: 0.85rem;
+  }
+}
+
+.description,
+.requests {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #e2e9ee;
+}
+
+.description > span {
+  color: #6b7d8c;
+  font-size: 0.85rem;
+}
+
+.requests article {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: #f5f8fa;
+
+  display: grid;
+  gap: 0.4rem;
+}
+
+@media (max-width: 700px) {
+  .search-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.response-form {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}

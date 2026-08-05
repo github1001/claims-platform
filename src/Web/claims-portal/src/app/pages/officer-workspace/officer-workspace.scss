@@ -1,0 +1,164 @@
+.search-card {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+
+  .form-field {
+    flex: 1;
+  }
+}
+
+.claim-card {
+  margin-top: 1.4rem;
+}
+
+.claim-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  h3 {
+    margin: 0.25rem 0 0;
+  }
+}
+
+.reference {
+  color: #607487;
+  font-size: 0.85rem;
+}
+
+.status {
+  align-self: flex-start;
+  padding: 0.45rem 0.75rem;
+  border-radius: 2rem;
+  background: #e4edf4;
+  font-weight: 700;
+}
+
+.status[data-status="UnderReview"] {
+  background: #e4edf8;
+  color: #174f78;
+}
+
+.status[data-status="AdditionalInformationRequired"] {
+  background: #fff3d6;
+  color: #79520a;
+}
+
+.status[data-status="Approved"],
+.status[data-status="Settled"] {
+  background: #e5f6eb;
+  color: #176238;
+}
+
+.status[data-status="Rejected"] {
+  background: #fde8e8;
+  color: #8b2525;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  span {
+    color: #6b7d8c;
+    font-size: 0.85rem;
+  }
+
+  strong {
+    overflow-wrap: anywhere;
+  }
+}
+
+.description {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid #e2e9ee;
+
+  span {
+    color: #6b7d8c;
+    font-size: 0.85rem;
+  }
+
+  p {
+    margin-bottom: 0;
+    line-height: 1.6;
+  }
+}
+
+.workflow-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.4rem;
+}
+
+.action-card {
+  h3 {
+    margin-top: 0;
+  }
+
+  form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  p {
+    color: #607487;
+    line-height: 1.5;
+  }
+}
+
+.information-section {
+  margin-top: 1.4rem;
+
+  h3 {
+    margin-top: 0;
+  }
+}
+
+.information-request {
+  margin-top: 0.8rem;
+  padding: 1rem;
+  border-radius: 0.55rem;
+  background: #f5f8fa;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  span {
+    color: #607487;
+  }
+
+  p {
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+}
+
+@media (max-width: 700px) {
+  .search-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .information-request div {
+    flex-direction: column;
+  }
+}

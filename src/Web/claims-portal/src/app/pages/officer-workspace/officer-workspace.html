@@ -1,0 +1,305 @@
+<div class="page-heading">
+  <h2>Claims officer workspace</h2>
+  <p>
+    Load a claim and progress it through assessment.
+  </p>
+</div>
+
+<form
+  class="search-card card"
+  [formGroup]="searchForm"
+  (ngSubmit)="search()">
+
+  <div class="form-field">
+    <label for="claimNumber">
+      Claim reference
+    </label>
+
+    <input
+      id="claimNumber"
+      type="text"
+      placeholder="CLM-2026-XXXXXXXX"
+      formControlName="claimNumber">
+  </div>
+
+  <button
+    class="primary-button"
+    type="submit"
+    [disabled]="loading">
+    {{ loading ? 'Loading...' : 'Load claim' }}
+  </button>
+</form>
+
+@if (successMessage) {
+  <div class="success-message">
+    {{ successMessage }}
+  </div>
+}
+
+@if (errorMessage) {
+  <div class="error-message">
+    {{ errorMessage }}
+  </div>
+}
+
+@if (claim) {
+  <section class="claim-card card">
+    <div class="claim-header">
+      <div>
+        <span class="reference">
+          {{ claim.claimNumber }}
+        </span>
+
+        <h3>
+          {{ claim.claimType }} claim
+        </h3>
+      </div>
+
+      <span
+        class="status"
+        [attr.data-status]="claim.status">
+        {{ claim.status }}
+      </span>
+    </div>
+
+    <div class="details-grid">
+      <div>
+        <span>Claimant</span>
+        <strong>{{ claim.claimantName }}</strong>
+      </div>
+
+      <div>
+        <span>Email</span>
+        <strong>{{ claim.claimantEmail }}</strong>
+      </div>
+
+      <div>
+        <span>Incident date</span>
+        <strong>
+          {{ claim.incidentDate | date:'mediumDate' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Estimated loss</span>
+        <strong>
+          {{ claim.estimatedLoss | currency:'MYR' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Assigned officer</span>
+        <strong>
+          {{ claim.assignedOfficerId ?? 'Unassigned' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Version</span>
+        <strong>{{ claim.version }}</strong>
+      </div>
+    </div>
+
+    <div class="description">
+      <span>Incident description</span>
+      <p>{{ claim.incidentDescription }}</p>
+    </div>
+  </section>
+
+  <section class="workflow-grid">
+    @if (claim.status === 'Submitted') {
+      <article class="card action-card">
+        <h3>Start review</h3>
+
+        <p>
+          Assign this claim to the current claims officer.
+        </p>
+
+        <button
+          class="primary-button"
+          type="button"
+          [disabled]="actionInProgress"
+          (click)="startReview()">
+          Start review
+        </button>
+      </article>
+    }
+
+    @if (claim.status === 'UnderReview') {
+      <article class="card action-card">
+        <h3>Request information</h3>
+
+        <form
+          [formGroup]="informationForm"
+          (ngSubmit)="requestInformation()">
+
+          <div class="form-field">
+            <label for="question">
+              Information required
+            </label>
+
+            <textarea
+              id="question"
+              formControlName="question"
+              placeholder="Describe the documents or evidence required">
+            </textarea>
+          </div>
+
+          <button
+            class="secondary-button"
+            type="submit"
+            [disabled]="actionInProgress">
+            Request information
+          </button>
+        </form>
+      </article>
+
+      <article class="card action-card">
+        <h3>Approve claim</h3>
+
+        <form
+          [formGroup]="approveForm"
+          (ngSubmit)="approve()">
+
+          <div class="form-field">
+            <label for="settlementAmount">
+              Settlement amount
+            </label>
+
+            <input
+              id="settlementAmount"
+              type="number"
+              min="1"
+              step="0.01"
+              formControlName="settlementAmount">
+          </div>
+
+          <div class="form-field">
+            <label for="approvalReason">
+              Approval reason
+            </label>
+
+            <textarea
+              id="approvalReason"
+              formControlName="reason">
+            </textarea>
+          </div>
+
+          <button
+            class="primary-button"
+            type="submit"
+            [disabled]="actionInProgress">
+            Approve claim
+          </button>
+        </form>
+      </article>
+
+      <article class="card action-card">
+        <h3>Reject claim</h3>
+
+        <form
+          [formGroup]="rejectForm"
+          (ngSubmit)="reject()">
+
+          <div class="form-field">
+            <label for="rejectionReason">
+              Rejection reason
+            </label>
+
+            <textarea
+              id="rejectionReason"
+              formControlName="reason">
+            </textarea>
+          </div>
+
+          <button
+            class="danger-button"
+            type="submit"
+            [disabled]="actionInProgress">
+            Reject claim
+          </button>
+        </form>
+      </article>
+    }
+
+    @if (
+      claim.status ===
+      'AdditionalInformationRequired'
+    ) {
+      <article class="card action-card">
+        <h3>Awaiting claimant response</h3>
+
+        <p>
+          The claimant must provide the requested
+          information through the tracking page.
+        </p>
+      </article>
+    }
+
+    @if (claim.status === 'Approved') {
+      <article class="card action-card">
+        <h3>Settle claim</h3>
+
+        <p>
+          Approved settlement amount:
+          <strong>
+            {{
+              claim.approvedSettlementAmount
+                | currency:'MYR'
+            }}
+          </strong>
+        </p>
+
+        <button
+          class="primary-button"
+          type="button"
+          [disabled]="actionInProgress"
+          (click)="settle()">
+          Mark as settled
+        </button>
+      </article>
+    }
+
+    @if (
+      claim.status === 'Rejected' ||
+      claim.status === 'Settled'
+    ) {
+      <article class="card action-card">
+        <h3>Claim completed</h3>
+
+        <p>
+          This claim is now
+          <strong>{{ claim.status }}</strong>.
+        </p>
+
+        @if (claim.decisionReason) {
+          <p>
+            {{ claim.decisionReason }}
+          </p>
+        }
+      </article>
+    }
+  </section>
+
+  @if (claim.informationRequests.length > 0) {
+    <section class="card information-section">
+      <h3>Information requests</h3>
+
+      @for (
+        request of claim.informationRequests;
+        track request.id
+      ) {
+        <article class="information-request">
+          <div>
+            <strong>{{ request.question }}</strong>
+            <span>{{ request.status }}</span>
+          </div>
+
+          @if (request.response) {
+            <p>{{ request.response }}</p>
+          }
+        </article>
+      }
+    </section>
+  }
+}

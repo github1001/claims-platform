@@ -1,0 +1,73 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  background: #102f4f;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+
+  h1,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 1.15rem;
+  }
+
+  p {
+    margin-top: 0.2rem;
+    font-size: 0.8rem;
+    color: #c8d7e5;
+  }
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 0.7rem;
+  background: white;
+  color: #102f4f;
+  font-weight: 800;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  a {
+    padding: 0.65rem 0.85rem;
+    border-radius: 0.5rem;
+    color: #d9e7f2;
+    text-decoration: none;
+  }
+
+  a:hover,
+  a.active {
+    background: rgba(255, 255, 255, 0.14);
+    color: white;
+  }
+}
+
+.page-container {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 4rem;
+}
+
+@media (max-width: 800px) {
+  .app-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,110 @@
+<div class="page-heading">
+  <h2>Submit a claim</h2>
+  <p>
+    Report a motor or property incident.
+  </p>
+</div>
+
+<form
+  class="card"
+  [formGroup]="form"
+  (ngSubmit)="submit()">
+
+  <div class="form-grid">
+    <div class="form-field">
+      <label for="claimType">Claim type</label>
+
+      <select
+        id="claimType"
+        formControlName="claimType">
+        <option value="Motor">Motor</option>
+        <option value="Property">Property</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label for="incidentDate">Incident date</label>
+
+      <input
+        id="incidentDate"
+        type="date"
+        formControlName="incidentDate">
+    </div>
+
+    <div class="form-field">
+      <label for="claimantName">Full name</label>
+
+      <input
+        id="claimantName"
+        type="text"
+        formControlName="claimantName">
+    </div>
+
+    <div class="form-field">
+      <label for="claimantEmail">Email</label>
+
+      <input
+        id="claimantEmail"
+        type="email"
+        formControlName="claimantEmail">
+    </div>
+
+    <div class="form-field full-width">
+      <label for="incidentDescription">
+        Incident description
+      </label>
+
+      <textarea
+        id="incidentDescription"
+        formControlName="incidentDescription">
+      </textarea>
+    </div>
+
+    <div class="form-field">
+      <label for="estimatedLoss">
+        Estimated loss
+      </label>
+
+      <input
+        id="estimatedLoss"
+        type="number"
+        min="1"
+        step="0.01"
+        formControlName="estimatedLoss">
+    </div>
+  </div>
+
+  <div class="actions">
+    <button
+      class="primary-button"
+      type="submit"
+      [disabled]="submitting">
+      {{ submitting ? 'Submitting...' : 'Submit claim' }}
+    </button>
+  </div>
+</form>
+
+@if (submittedClaim) {
+  <div class="success-message">
+    <strong>Claim submitted successfully.</strong>
+
+    <p>
+      Reference:
+      <strong>{{ submittedClaim.claimNumber }}</strong>
+    </p>
+
+    <a
+      routerLink="/track"
+      [queryParams]="{
+        claimNumber: submittedClaim.claimNumber
+      }">
+      Track this claim
+    </a>
+  </div>
+}
+
+@if (errorMessage) {
+  <div class="error-message">
+    {{ errorMessage }}
+  </div>
+}

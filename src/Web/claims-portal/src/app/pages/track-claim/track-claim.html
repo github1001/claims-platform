@@ -1,0 +1,188 @@
+<div class="page-heading">
+  <h2>Track a claim</h2>
+
+  <p>
+    Enter your claim reference to view its latest status.
+  </p>
+</div>
+
+<form
+  class="search-card card"
+  [formGroup]="form"
+  (ngSubmit)="search()">
+
+  <div class="form-field">
+    <label for="claimNumber">
+      Claim reference
+    </label>
+
+    <input
+      id="claimNumber"
+      type="text"
+      placeholder="CLM-2026-XXXXXXXX"
+      formControlName="claimNumber">
+  </div>
+
+  <button
+    class="primary-button"
+    type="submit"
+    [disabled]="loading">
+
+    {{ loading ? 'Searching...' : 'Track claim' }}
+  </button>
+</form>
+
+@if (successMessage) {
+  <div class="success-message">
+    {{ successMessage }}
+  </div>
+}
+
+@if (errorMessage) {
+  <div class="error-message">
+    {{ errorMessage }}
+  </div>
+}
+
+@if (claim) {
+  <section class="claim-card card">
+
+    <div class="claim-header">
+      <div>
+        <span class="reference">
+          {{ claim.claimNumber }}
+        </span>
+
+        <h3>
+          {{ claim.claimType }} claim
+        </h3>
+      </div>
+
+      <span
+        class="status"
+        [attr.data-status]="claim.status">
+
+        {{ claim.status }}
+      </span>
+    </div>
+
+    <div class="details-grid">
+      <div>
+        <span>Claimant</span>
+        <strong>{{ claim.claimantName }}</strong>
+      </div>
+
+      <div>
+        <span>Incident date</span>
+
+        <strong>
+          {{ claim.incidentDate | date:'mediumDate' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Estimated loss</span>
+
+        <strong>
+          {{ claim.estimatedLoss | currency:'MYR' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Approved amount</span>
+
+        <strong>
+          @if (claim.approvedSettlementAmount !== null) {
+            {{
+              claim.approvedSettlementAmount
+                | currency:'MYR'
+            }}
+          } @else {
+            Not decided
+          }
+        </strong>
+      </div>
+    </div>
+
+    <div class="description">
+      <span>Incident description</span>
+
+      <p>
+        {{ claim.incidentDescription }}
+      </p>
+    </div>
+
+    @if (claim.decisionReason) {
+      <div class="description">
+        <span>Decision</span>
+
+        <p>
+          {{ claim.decisionReason }}
+        </p>
+      </div>
+    }
+
+    @if (claim.informationRequests.length > 0) {
+      <div class="requests">
+
+        <h4>Information requests</h4>
+
+        @for (
+          request of claim.informationRequests;
+          track request.id
+        ) {
+          <article>
+
+            <div class="request-heading">
+              <strong>
+                {{ request.question }}
+              </strong>
+
+              <span>
+                {{ request.status }}
+              </span>
+            </div>
+
+            @if (request.response) {
+              <p>
+                {{ request.response }}
+              </p>
+            }
+
+            @if (request.status === 'Pending') {
+              <form
+                class="response-form"
+                [formGroup]="responseForm"
+                (ngSubmit)="provideInformation(request.id)">
+
+                <div class="form-field">
+                  <label [for]="'response-' + request.id">
+                    Your response
+                  </label>
+
+                  <textarea
+                    [id]="'response-' + request.id"
+                    formControlName="response"
+                    placeholder="Provide the requested details">
+                  </textarea>
+                </div>
+
+                <button
+                  class="primary-button"
+                  type="submit"
+                  [disabled]="responding">
+
+                  {{
+                    responding
+                      ? 'Submitting...'
+                      : 'Submit information'
+                  }}
+                </button>
+              </form>
+            }
+          </article>
+        }
+      </div>
+    }
+  </section>
+}
