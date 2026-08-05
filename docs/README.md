@@ -239,11 +239,6 @@ POST /api/claims/{id}/settle
 
 ---
 
-## Application Walkthrough
-
-![Backend_Postman_API_calls](docs/Backend_showcase.gif)
-![UI_frontend](docs/Frontend_showcase.gif)
-
 ## Future Enhancements
 
 Authentication & Authorization
@@ -319,3 +314,9 @@ Testing
 - Load Testing
 - Playwright
 - End-to-End Tests
+
+
+## Application Walkthrough
+
+![Backend_Postman_API_calls](docs/Backend_showcase.gif)
+![UI_frontend](docs/Frontend_showcase.gif)
